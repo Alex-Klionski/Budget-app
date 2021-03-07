@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link type="text/css" rel="stylesheet" href="style.css">
+        <script src="app.js"></script>
+        <title>Budget</title>
+    </head>
+    <body>
+        <nav class="sidebar">
+            <header>BudgetApp</header>
+            <ul>
+                <li><a href="#"><img src="pictures/dashboard.png"/><span>Dashboard</span></a></li>
+                <li><a href="#"><img src="pictures/calendar.png"/><span>Calendar</span></a></li>
+                <li><a href="#"><img src="pictures/calculator.png"/><span>Calculate</span></a></li>
+                <li><a href="#"><img src="pictures/stats.png"/><span>Statistics</span></a></li>
+                <li><a href="#"><img src="pictures/contact-book.png"/><span>Contact us</span></a></li>
+            </ul>
+        </nav>  
+        <header>
+            <div class="centered-text">
+                <h1>Добро пожаловать!</h1>
+                <h3>Вы попали на вебсайт, который поможет вам <span style="color:red">сохранить</span> ваши деньги</h3>
+            </div>
+            <div class="container">
+                <div class="clock">
+                    <strong id="clockDisplay"></strong>
+                </div>           
+            </div>
+        </header>
+
+        <main>
+            <section class="budget">
+                <div class="circle">
+                    <div class="budget-value">0</div>
+                </div>
+            
+                <div class="budget__income clearfix">
+                    <div class="budget__income--text">Доход</div>
+                    <div class="right clearfix">
+                        <div class="budget__income--value">0</div>
+                    </div>
+                </div>
+                
+                <div class="budget__expenses clearfix">
+                    <div class="budget__expenses--text">Траты</div>
+                    <div class="right clearfix">
+                        <div class="budget__expenses--value">0</div>
+                        <div class="budget__expenses--percentage">0%</div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="calculate-budget">
+                <div class="add">
+                    <div class="add-container">
+                        <select class="add-type">
+                            <option value="inc" selected>+</option>
+                            <option value="exp">-</option>
+                        </select>
+                        <input type="text" class="add-description" placeholder="Add description">
+                        <input type="number" min="0" class="add-value" placeholder="Value">
+                        <button class="add-btn"><img src="pictures/ok.png" class="ion-ios-checkmark-outline"/></button>
+                    </div>
+                </div>
+                
+                <div class="row clearfix">
+                    <div class="income column">
+                        <h2 class="income-title">Income</h2>
+                        <img src="pictures/income.png"/>
+                        <div class="income-list">
+                            <div class="item clearfix" id="income-0">
+                                <div class="item-description">Зарплата</div>
+                                <div class="right clearfix">
+                                    <div class="item-value">+ 2,100.00</div>
+                                    <div class="item-delete">
+                                        <button class="item-delete--btn"><i class="ion-ios-close-outline"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expenses column">
+                        <h2 class="expenses-title">Expenses</h2>
+                        <img src="pictures/expense.png"/>
+                        <div class="expenses-list">
+                            <div class="item clearfix" id="expense-0">
+                                <div class="item-description">Оплата учёбы</div>
+                                <div class="right clearfix">
+                                    <div class="item-value">- 900.00</div>
+                                    <div class="item-percentage">21%</div>
+                                    <div class="item-delete">
+                                        <button class="item-delete--btn"><i class="ion-ios-close-outline"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>  
+            <section class="statistics">
+                <h1 style="text-align: center;">Statistics</h1>
+            </section>
+            <section class="video">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/CtrY1TgiqlU" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </section>
+        </main>
+        <footer>
+            Klionski Alexey, 853501
+        </footer>
+        <script type="text/javascript" src="app.js"></script>
+    </body>
+</html>
