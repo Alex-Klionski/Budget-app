@@ -84,11 +84,76 @@ header h1 {
     margin-bottom: .945rem!important;
     background-color: white;
 }
-section.video {
+div.video {
     background: rgba(0, 0, 0, 0) url("pictures/bg.jpg") repeat fixed 0 0;
     padding: 80px 0 30px;
     width: 100%;
     text-align: center;
+}
+.box { 
+    padding: 25px;
+    border: 5px dashed red;
+    border-radius: 10px;
+    background-clip: content-box;
+    box-shadow: 5px 4px 10px 2px gray;
+    margin-left: auto;
+    font-family: SwedbankSans,Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-size: 18px;
+    line-height: 1.428571429;
+    color: #512b2b;
+}
+.box li {
+    list-style-type: none;
+}
+.box p {
+    margin: 0 0 10px;
+}
+.box .left { 
+    float: left; 
+    shape-outside: polygon(0 0, 0 300px, 200px 300px); 
+    clip-path: polygon(0 0, 0 320px, 200px 320px); 
+    background: linear-gradient(to top right, #67D7F5, #86F7CC); 
+    height: 400px; 
+    width: 300px; 
+}
+.box .right { 
+    float: right; 
+    shape-outside: polygon(200px 300px, 300px 300px, 300px 0, 0 0); 
+    clip-path: polygon(200px 320px, 300px 320px, 300px 0, 0 0); 
+    background: linear-gradient(to bottom left, #67D7F5, #86F7CC); 
+    height: 400px; 
+    width: 300px; 
+}
+.section-heading-title {
+    background-position: center top;
+    background-repeat: no-repeat;
+    padding: 0 15px;
+    position: relative;
+    width: 97.4%;
+    text-align: center;
+}
+.pagetitle-separator {
+    background: #1fc5ee !important;
+    height: 1px;
+    margin: 23px auto 45px;
+    width: 250px;
+}
+.pagetitle-separator-border {
+    width: 101px;
+    height: 3px;
+    margin: 0 auto;
+    position: relative;
+    top: -2px;
+    background-color: #1fc5ee !important;
+}
+.pagetitle-separator-box {
+    background: none repeat scroll 0 0 #1fc5ee;
+    height: 10px;
+    margin: auto;
+    position: relative;
+    top: -4px;
+    -webkit-transform: rotate(45deg);
+    width: 10px;
 }
 /* DATE */
 
@@ -241,7 +306,7 @@ footer {
 .add-btn:focus { outline: none; }
 
 .row {
-    margin: 20px auto;
+    margin: 60px auto;
     display: flex;
     justify-content: center;
     align-items: stretch;

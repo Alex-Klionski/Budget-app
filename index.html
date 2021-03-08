@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <link type="text/css" rel="stylesheet" href="style.css">
         <script src="app.js"></script>
+        <script src="https://www.google.com/jsapi"></script>
         <title>Budget</title>
     </head>
     <body>
@@ -13,7 +14,7 @@
                 <li><a href="#"><img src="pictures/dashboard.png"/><span>Dashboard</span></a></li>
                 <li><a href="#"><img src="pictures/calendar.png"/><span>Calendar</span></a></li>
                 <li><a href="#"><img src="pictures/calculator.png"/><span>Calculate</span></a></li>
-                <li><a href="#"><img src="pictures/stats.png"/><span>Statistics</span></a></li>
+                <li><a href="#statistics"><img src="pictures/stats.png"/><span>Statistics</span></a></li>
                 <li><a href="#"><img src="pictures/contact-book.png"/><span>Contact us</span></a></li>
             </ul>
         </nav>  
@@ -98,11 +99,66 @@
                     </div>
                 </div>
             </section>  
-            <section class="statistics">
-                <h1 style="text-align: center;">Statistics</h1>
+            <section id="statistics" class="statistics row">
+                <div class="section-heading-title">
+                    <h1>Статистика</h1>
+                    <div class="pagetitle-separator">
+                        <div class="pagetitle-separator-border">
+                            <div class="pagetitle-separator-box"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="air" style="width: 500px; height: 400px;"></div>
+                <div id="oil" style="width: 500px; height: 400px;"></div>
             </section>
-            <section class="video">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/CtrY1TgiqlU" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <section class="video-budget">
+                <div class="section-heading-title">
+                    <h1>Видео по планированию бюджета</h1>
+                    <div class="pagetitle-separator">
+                        <div class="pagetitle-separator-border">
+                            <div class="pagetitle-separator-box"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/CtrY1TgiqlU" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+            <section class="advice">
+                <div class="section-heading-title">
+                    <h1>Советы по планированию бюджета</h1>
+                    <div class="pagetitle-separator">
+                        <div class="pagetitle-separator-border">
+                            <div class="pagetitle-separator-box"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="left"></div>
+                    <div class="right"></div> 
+                    <ul>
+                        <li>
+                            <strong>Ведите учет всех месячных доходов своей семьи.</strong>
+                        </li>
+                        <p>К ним причисляйте не только пенсию, но и пособия и другие доходы, например, деньги за проданные грибы и ягоды.</p>
+                        <li>
+                            <strong>От полученной суммы отнимите обязательные платежи.</strong>
+                        </li>
+                        <p>В них входят аренда квартиры, счет за электричество, кредитные обязательства и т.д. Тем самым вы получите реальную сумму денег, на которую в ближайший месяц можно рассчитывать.</p>        
+                        <li>
+                            <strong>В конце каждого дня до мелочей записывайте расходы.</strong>
+                        </li>
+                        <p>Можете это делать в специальной тетради, а если вы используете интернет, удобнее всего это делать в разделе интернет-банка.</p>         
+                        <li>
+                            <strong>Группируйте расходы по категориям.</strong>
+                        </li>
+                        <p>Введите категории, по которым тратите регулярно – например, продукты питания, медицина, хозтовары, одежда, транспорт.</p>           
+                        <li>
+                            <strong>В конце месяца проведите анализ трат.</strong>
+                        </li>                 
+                        <p>Возможно, вы заметите, что средствами одной из групп можно распоряжаться немного экономнее, а сэкономленные деньги использовать иначе.</p>
+                    </ul>
+                </div>
             </section>
         </main>
         <footer>
