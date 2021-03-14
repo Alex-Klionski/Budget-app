@@ -19,26 +19,20 @@ function showTime(){
 
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = h + ":" + m + ":" + s + session;
-    var dateTime = `${date} ${time}`
+    dateTime = `${date} ${time}`
     document.getElementById('clockDisplay').innerHTML = dateTime;
     document.getElementById('clockDisplay').textContent = dateTime;
     setTimeout(showTime, 1000)
+    return dateTime
 }
-showTime()
+var time = showTime()
 
 
 // GOOGLE STATISTICS
 
 google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(drawChart);
-function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Газ', 'Объём'],
-        ['Еда',     78.09],
-        ['Развлечения', 20.95],
-        ['Магазин',    0.93],
-        ['Квартира  ', 0.03]
-    ]);
+
+function drawChart(data) {
     var options = {
         title: 'Бюджет',
         is3D: true,
@@ -48,14 +42,7 @@ function drawChart() {
         chart.draw(data, options);
 }
 
-google.setOnLoadCallback(drawChart2);
-function drawChart2() {
-    var data = google.visualization.arrayToDataTable([
-        ['День недели', 'Траты', 'Доход'],
-        ['Понедельник', 1.3, 70],
-        ['Вторник', 2000, 3120],
-        ['Среда', 12170, 9920]
-    ]);
+function drawChart2(data) {
     var options = {
         title: 'Траты/Доход',
         hAxis: {title: 'День недели'},
@@ -115,7 +102,7 @@ var budgetController = (function () {
         });
         data.totals[type] = sum;
     };
-
+    var arrs =[['День недели', 'Траты', 'Доход']];
     return {
         addItem: function (type, desc, val) {
             var newItem, ID;
@@ -175,8 +162,22 @@ var budgetController = (function () {
         
         testing: function () {
             console.log(data);
-        }
+        },
 
+    
+        getExpArrays: function() {
+            var arrs = [["", ""]];
+            data.allItems['exp'].forEach(item => {
+                console.log(item.value);
+                arrs.push([item.description, item.value])
+            })
+            return arrs;
+        },
+
+        getTotalArrays: function(){
+            arrs.push([showTime(), data.totals.exp, data.totals.inc])
+            return arrs
+        }
     }
 })();
 
@@ -342,6 +343,10 @@ var controller = (function (budgetCntrl, UICntrl) {
             updateBudget();
             updateExpPercentages();
         }
+        var data = google.visualization.arrayToDataTable(budgetController.getExpArrays());
+        var data2 = google.visualization.arrayToDataTable(budgetController.getTotalArrays());
+        google.setOnLoadCallback(drawChart(data));
+        google.setOnLoadCallback(drawChart2(data2));
     };
 
     return {
