@@ -205,16 +205,8 @@ var UIController = (function () {
         num = num.toFixed(2);
 
         numSplit = num.split('.');
-        
-        int = numSplit[0];
-        dec = numSplit[1];
-
-        if (int.length > 3) {
-            int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3);
-        }
-
-        return (type === 'exp' ? '-' : '+') + ' ' + int + '.' + dec; 
-
+ 
+        return (type === 'exp' ? '-' : '+') + ' ' + numSplit;
     };
     
     var nodeListForEach = function(list, callbackFn) {    
@@ -253,11 +245,11 @@ var UIController = (function () {
         clearFields: function() {
             var fields, fieldsArray;
             fields = document.querySelectorAll(DOMstrings.inputDescription + ',' + DOMstrings.inputValue);
-            fieldsArray = Array.prototype.slice.call(fields);
-            fieldsArray.forEach(function(currentValue, index, array){
+            console.log(fields)
+            nodeListForEach(fields, function(currentValue){
                 currentValue.value = "";
             });
-            fieldsArray[0].focus();
+            fields[0].focus()
         },
         
         displayBudget: function(obj) {
@@ -278,9 +270,8 @@ var UIController = (function () {
             }
         },
         
-        displayPercentages: function(percentagesArr) {
+         displayPercentages: function(percentagesArr) {
             var fields = document.querySelectorAll(DOMstrings.expPercentageLabel); 
-            
             nodeListForEach(fields, function(current, index){ 
                 if (percentagesArr[index] > 0) {
                     current.textContent = percentagesArr[index] + '%';
@@ -296,11 +287,10 @@ var UIController = (function () {
                 DOMstrings.inputType + ',' + 
                 DOMstrings.inputDescription + ',' + 
                 DOMstrings.inputValue);
+            console.log(fields)
             nodeListForEach(fields, function(current){
                 current.classList.toggle('red-focus');
             });
-            document.querySelector(DOMstrings.inputButton).classList.toggle('red');
-            
         },
         getDOMstrings: function () {
             return DOMstrings;
@@ -311,7 +301,7 @@ var UIController = (function () {
 // GLOBAL APP CONTROLLER 
 var controller = (function (budgetCntrl, UICntrl) {
 
-    var setUpEventListeners = function () {
+    var setEvents = function () {
         var DOM = UICntrl.getDOMstrings();       
         document.querySelector(DOM.inputButton).addEventListener('click', controlAddItem);    
         // Change color type    
@@ -357,7 +347,7 @@ var controller = (function (budgetCntrl, UICntrl) {
                 totalExp: 0,
                 percentage: -1
             });
-            setUpEventListeners();
+            setEvents();
         }
     }
 
