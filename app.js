@@ -52,6 +52,12 @@ function drawChart2(data) {
         chart.draw(data, options);
 }
 
+function getGoogleData() {
+    var data1 = google.visualization.arrayToDataTable(budgetController.getExpArrays());
+    var data2 = google.visualization.arrayToDataTable(budgetController.getTotalArrays());
+    google.setOnLoadCallback(drawChart(data1));
+    google.setOnLoadCallback(drawChart2(data2));
+}
 
 // BUDGET CONTROLLLER
 var budgetController = (function () {
@@ -161,10 +167,22 @@ var budgetController = (function () {
         },
         
         testing: function () {
-            console.log(data);
+            console.log(JSON.stringify(data));
+            console.log(data)
         },
 
-    
+        setData: function(newData, type) {
+            lst = newData.allItems[type]
+            lst.forEach(item=> {
+                if(type === 'exp'){
+                    data.allItems[type].push(new Expense(item.id, item.description, item.value))
+                }
+                else {
+                    data.allItems[type].push(new Income(item.id, item.description, item.value))
+                }
+            })
+        },
+
         getExpArrays: function() {
             var arrs = [["", ""]];
             data.allItems['exp'].forEach(item => {
@@ -243,7 +261,7 @@ var UIController = (function () {
         },
                 
         clearFields: function() {
-            var fields, fieldsArray;
+            var fields;
             fields = document.querySelectorAll(DOMstrings.inputDescription + ',' + DOMstrings.inputValue);
             console.log(fields)
             nodeListForEach(fields, function(currentValue){
@@ -307,18 +325,8 @@ var controller = (function (budgetCntrl, UICntrl) {
         // Change color type    
         document.querySelector(DOM.inputType).addEventListener('change', UICntrl.changedType);
     };
-    
-     var updateBudget = function(){
-        budgetCntrl.calculateBudget();
-        var budget = budgetCntrl.getBudget();
-        UICntrl.displayBudget(budget);        
-    };
 
-    var updateExpPercentages = function() {
-        budgetCntrl.calculatePercentages();
-        var percentages = budgetCntrl.getPercentages();
-        UICntrl.displayPercentages(percentages);     
-    };
+
 
     var controlAddItem = function () {
         var input, newItem;
@@ -330,27 +338,75 @@ var controller = (function (budgetCntrl, UICntrl) {
             newItem = budgetCntrl.addItem(input.type, input.description, input.value);
             UICntrl.addListItem(newItem, input.type);
             UICntrl.clearFields();
-            updateBudget();
-            updateExpPercentages();
+            controller.updateBudget();
+            controller.updateExpPercentages();
         }
-        var data = google.visualization.arrayToDataTable(budgetController.getExpArrays());
-        var data2 = google.visualization.arrayToDataTable(budgetController.getTotalArrays());
-        google.setOnLoadCallback(drawChart(data));
-        google.setOnLoadCallback(drawChart2(data2));
+        getGoogleData();
+
     };
 
     return {
-        init: function () {
+        init: function (budget = null, totalInc = null, totalExp = null, percentage = null) {
             UICntrl.displayBudget({
-                budget: 0,
-                totalInc: 0,
-                totalExp: 0,
-                percentage: -1
+                budget: budget,
+                totalInc: totalInc,
+                totalExp: totalExp,
+                percentage: percentage
             });
             setEvents();
-        }
+        }, 
+
+        updateExpPercentages: function() {
+            budgetController.calculatePercentages();
+            var percentages = budgetController.getPercentages();
+            UIController.displayPercentages(percentages);     
+        },
+            
+        updateBudget: function(){
+            budgetController.calculateBudget();
+            var budget = budgetCntrl.getBudget();
+            UIController.displayBudget(budget);        
+        },
     }
 
 })(budgetController, UIController);
 
 controller.init();
+
+// ASYNC
+
+
+async function loadJson(url) {
+    let response = await fetch(url);
+    if (response.status === 200) {
+        return response.json();
+    } 
+    else {
+        console.error(response.json())
+    }
+}
+
+function addHtml(data, type){
+    lst = data.allItems[type]
+    lst.forEach(item=> {
+        UIController.addListItem(item, type)
+    })
+}
+
+
+async function getJsonData() {
+    data = await loadJson('https://raw.githubusercontent.com/Alex-Klionski/Budget-app/master/data.json')
+    budgetController.setData(data, 'exp')
+    budgetController.setData(data, 'inc')
+    controller.init(data.budget, data.totals.inc, data.totals.exp, data.percentage); 
+ 
+    addHtml(data, 'exp')
+    addHtml(data, 'inc')
+    // update Percentages
+    controller.updateBudget()
+    controller.updateExpPercentages()
+
+    getGoogleData();   
+}
+
+document.querySelector(".load-data").addEventListener('click', getJsonData);   
