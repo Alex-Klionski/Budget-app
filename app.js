@@ -1,10 +1,10 @@
 // TIME
 function showTime(){
-    var today = new Date()
-    var h = today.getHours()
-    var m = today.getMinutes()
-    var s = today.getSeconds()
-    var session = "AM"
+    const today = new Date()
+    let h = today.getHours()
+    let m = today.getMinutes()
+    let s = today.getSeconds()
+    let session = "AM"
 
     if (h === 0){
         h = 12;
@@ -17,16 +17,14 @@ function showTime(){
     m = (m < 10) ? "0" + m : m;
     s = (s < 10) ? "0" + s : s;
 
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = h + ":" + m + ":" + s + session;
+    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const time = h + ":" + m + ":" + s + session;
     dateTime = `${date} ${time}`
     document.getElementById('clockDisplay').innerHTML = dateTime;
-    document.getElementById('clockDisplay').textContent = dateTime;
-    setTimeout(showTime, 1000)
+    setTimeout(showTime, 1000);
     return dateTime
 }
-var time = showTime()
-
+showTime();
 
 // GOOGLE STATISTICS
 
@@ -74,13 +72,15 @@ var budgetController = (function () {
         budget: 0,
         percentage: -1
     };
-            
-    var Expense = function (id, description, value) {
-        this.id = id;
-        this.description = description;
-        this.value = value;
-        this.percentage = -1;
-    };
+    
+    class Expense{
+        constructor(id, description, value){
+            this.id = id;
+            this.description = description;
+            this.value = value;
+            this.percentage = -1;
+        };
+    }
     
     Expense.prototype.calcPercentage = function(totalIncome) {
         if (totalIncome > 0) {
@@ -94,12 +94,13 @@ var budgetController = (function () {
         return this.percentage;        
     };
     
-    var Income = function (id, description, value) {
-
-        this.id = id;
-        this.description = description;
-        this.value = value;
-    };
+    class Income {
+        constructor(id, description, value) {
+            this.id = id;
+            this.description = description;
+            this.value = value;
+        };
+    }
     
     var calculateTotal = function(type) {
         var sum = 0;
@@ -153,7 +154,6 @@ var budgetController = (function () {
             });
             
             return allPercentages;
-            
         },
         
         getBudget: function(){ 
@@ -217,7 +217,7 @@ var UIController = (function () {
     }; 
       
     var formatNumber = function(num, type) {
-        var numSplit, int, dec;
+        var numSplit;
  
         num = Math.abs(num);
         num = num.toFixed(2);
@@ -325,7 +325,6 @@ var controller = (function (budgetCntrl, UICntrl) {
         // Change color type    
         document.querySelector(DOM.inputType).addEventListener('change', UICntrl.changedType);
     };
-
 
 
     var controlAddItem = function () {
